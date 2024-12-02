@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const choices = ["rock", "paper", "scissors"];
+      let humanScore = 0;
+      let computerScore = 0;
+      let playMore = "";
+
+      function getComputerChoice() {
+        let random_choice = Math.floor(Math.random() * choices.length);
+        return choices[random_choice];
+      }
+
+      function getHumanChoice() {
+        let choice = prompt("Rock, Paper, Scissors?");
+        if (!choice?.length) {
+          choice = prompt("Please choose, Rock, Paper, Scissors?");
+        }
+        return choice;
+      }
+
+      function playRound(humanChoice, computerChoice) {
+        console.log("condition", !Boolean(choices.includes(humanChoice)));
+        if (!Boolean(choices.includes(humanChoice))) {
+          console.log("stop the game");
+          playMore == "no";
+          return null;
+        } else {
+          // Paper Logic
+          if (humanChoice == "paper" && computerChoice == "paper") {
+            console.log("It's a tie!");
+          }
+          if (humanChoice == "paper" && computerChoice == "rock") {
+            console.log("You win!");
+            humanScore += 1;
+          }
+          if (humanChoice == "paper" && computerChoice == "scissors") {
+            console.log("You lose!");
+            computerScore += 1;
+          }
+
+          // Rock Logic
+          if (humanChoice == "rock" && computerChoice == "rock") {
+            console.log("It's a tie!");
+          }
+          if (humanChoice == "rock" && computerChoice == "scissors") {
+            console.log("You win!");
+            humanScore += 1;
+          }
+          if (humanChoice == "rock" && computerChoice == "paper") {
+            console.log("You lose!");
+            computerScore += 1;
+          }
+
+          // Scissors Logic
+          if (humanChoice == "scissors" && computerChoice == "scissors") {
+            console.log("It's a tie!");
+          }
+          if (humanChoice == "scissors" && computerChoice == "paper") {
+            console.log("You win!");
+            humanScore += 1;
+          }
+          if (humanChoice == "scissors" && computerChoice == "rock") {
+            console.log("You lose!");
+            computerScore += 1;
+          }
+          return true;
+        }
+      }
+
+      while (playMore != "no") {
+        let humanSelection = getHumanChoice();
+        let computerSelection = getComputerChoice();
+        let invalid = playRound(humanSelection, computerSelection);
+
+        console.log(
+          `Score: You - ${humanScore} :: Computer - ${computerScore}`
+        );
+
+        if (playMore == "no" || invalid == null) {
+          console.log("invalid game sequence");
+          console.log("break exit 0");
+          break;
+        }
+        playMore = prompt("Do you want to play more?");
+      }
+    </script>
+  </body>
+</html>
